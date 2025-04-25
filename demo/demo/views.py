@@ -1,4 +1,4 @@
-from django.http import render,HttpResponse
+from django.http import HttpResponse
 #return a text file
 
 #def txt(request):
