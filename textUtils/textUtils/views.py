@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 def index(request):
-    #return HttpResponse("Home") 
-    params = {"name":"Akash",
+    return HttpResponse("Home") 
+    params = {"name":"Akash", 
               "city":"Delhi"}
     return render(request,"index.html",params)
 
