@@ -1,11 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+import re
 def index(request):
     #return HttpResponse("Home") 
     params = {"name":"Akash", 
               "city":"Delhi"}
     return render(request,"index.html",params)
+
+def index2(request):
+    return render(request,"index2.html")
 
 def analyze(request):
     djtext = request.GET.get('text','default')
@@ -21,10 +24,14 @@ def analyze(request):
     newText = ''
     punctuations = '''!()-[];:'"\,<>./?@#$%^&*_~'''
     if removepunc=="on":
-        for c in djtext:
-         if c not in punctuations:
+        if(removepunc=="on" and fullcaps=="on"):
+          newText = re.sub("[^a-zA-Z0-9]","",djtext) 
+          params={'purpose':'Remove Punctuation and fullcaps','analyzed_text':newText.upper()}  
+        else:   
+         for c in djtext:
+          if c not in punctuations:
             newText+=c
-        params = {'purpose':'Remove Punctuation','analyzed_text':newText}         
+          params = {'purpose':'Remove Punctuation','analyzed_text':newText}         
     elif fullcaps =="on":
        newText= str.upper(djtext)
        params = {'purpose':'Changed to Uppercase','analyzed_text':newText}

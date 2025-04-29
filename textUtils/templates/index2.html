@@ -59,10 +59,35 @@
       </div>
 
       <div class="container">
-        <h1>Your Analyzed Text:{{purpose}}</h1>
-        <p>
-            <pre>Result:{{analyzed_text}}</pre>
-        </p>
+        <form action="/analyze" method="get">
+            <div class="form-group">
+             <label for="text">Example TextArea</label>
+             <textarea name='text' class="form-control" id="text" rows="9"></textarea>
+            </div>   
+            
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input"  name="removepunc" id="removepunc">
+                <label class="custom-control-label" for="removepunc">RemovePunctuation</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input"  name="fullcaps" id="fullcaps">
+                <label class="custom-control-label" for="fullcaps">UpperCase</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input"  name="newLineRemove" id="newLineRemove">
+                <label class="custom-control-label" for="newLineRemove">NewLineRemove</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input"  name="extraSpaceRemove" id="extraSpaceRemove">
+                <label class="custom-control-label" for="extraSpaceRemove">ExtraSpaceRemove</label>
+              </div>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input"  name="charcount" id="charcount">
+                <label class="custom-control-label" for="charcount">CharCount</label>
+              </div>  
+      
+              <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>     
       </div>
       
     <!-- Optional JavaScript -->

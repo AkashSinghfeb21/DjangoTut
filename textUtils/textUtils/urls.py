@@ -21,7 +21,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name="index"),
-    path('analyze',views.analyze,name="analyze")
+    path('analyze/',views.analyze,name="analyze"),
+    path('index2/',views.index2,name="index2")
     # path('charcount',views.charcount,name="charcount"),
     # path('newlinerremove',views.newlinerremove,name="newlinerremove"),
     # path('spaceremove',views.spaceremove,name="spaceremove"),
