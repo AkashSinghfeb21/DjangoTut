@@ -21,10 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About us</a>
+              <a class="nav-link" href="about/">About us</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact us</a>
@@ -57,11 +57,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
+      <!--cross site forgery-->
       <div class="container">
-        <form action="/analyze" method="get">
+        <form action="/analyze/" method="post">{% csrf_token %}
             <div class="form-group">
-             <label for="text">Example TextArea</label>
+             <h1><label for="text">Please Enter your Text Here</label></h1>
              <textarea name='text' class="form-control" id="text" rows="9"></textarea>
             </div>   
             
