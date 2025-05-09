@@ -44,7 +44,12 @@ cart[idstr] = cart[idstr] + 1;
 }
 else
 {
-cart[idstr] = 1;
+    cart[idstr] = 1;
+    totalItem =0;
+     itemInCart = Object.values(cart)
+            for (let item of itemInCart) {
+                totalItem += item;
+            }
 }
 console.log(cart);
 localStorage.setItem('cart', JSON.stringify(cart));
