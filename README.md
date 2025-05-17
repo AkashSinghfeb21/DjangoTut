@@ -32,7 +32,7 @@ A basic shopping website that allows users to interact with products in a cart-b
 - **Built With**:  
 `HTML`, `CSS`, `JavaScript`, `Python (OOPs)`, `Django`, `MySQL`
 
-📺 **[Presentation Video](#)** *(Add video link here)*
+https://github.com/user-attachments/assets/950146d7-b3a6-4357-b980-6fc26a1e40fb
 
 ---
 
