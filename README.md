@@ -21,7 +21,7 @@ https://github.com/user-attachments/assets/eed1ff46-f5dd-4fd4-9427-d66353e86259
 
 ---
 
-## B) Shopping Website
+## B) MyAwesomeCart
 
 A basic shopping website that allows users to interact with products in a cart-based system. Features include:
 
@@ -38,14 +38,4 @@ A basic shopping website that allows users to interact with products in a cart-b
 
 ## C) Blog Website
 
-A simple blog platform built using Django that allows:
-
-- ✍️ Creating and publishing blog posts
-- 🗂️ Categorization of articles
-- 💬 Commenting system (optional enhancement)
-
-📺 **[Presentation Video](#)** *(Add video link here if available)*
-
----
-
-Feel free to explore each project folder for more information and setup instructions.
+In Progress
