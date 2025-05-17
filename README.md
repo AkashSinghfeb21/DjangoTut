@@ -17,7 +17,7 @@ This repository contains **three Django projects**, each demonstrating different
 **Built With**:  
 `HTML`, `CSS`, `JavaScript`, `Python (OOPs)`, `Django`, `MySQL`
 
-📺 **[Presentation Video](#)** *https://github.com/user-attachments/assets/eed1ff46-f5dd-4fd4-9427-d66353e86259*
+https://github.com/user-attachments/assets/eed1ff46-f5dd-4fd4-9427-d66353e86259
 
 ---
 
