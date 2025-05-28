@@ -10,8 +10,12 @@
         <img src="/media/{{product.image}}" width="233px" height="385px">
     </div>    
         <div class="row">
-            <button class="btn btn-primary mx-3">Buy Now</button>
-            <button class="btn btn-primary">Add To Cart</button>
+            <div class="row" id="divpr{{ product.id }}">
+                <!-- This will be dynamically updated by JS -->
+                <button id="pr{{ product.id }}" class="btn btn-primary cart mx-2">Add To Cart</button>
+                <button class="btn btn-primary buy-now">Buy Now</button>
+            </div>
+            
         </div>    
          
     </div>
@@ -26,37 +30,139 @@
 
 {% block js %}
 <script>
-console.log('working');
-if(localStorage.getItem('cart') == null){
-var cart = {};
-}
-else
-{
-cart = JSON.parse(localStorage.getItem('cart'));
-document.getElementById('cart').innerHTML = Object.keys(cart).length;
-}
-$('.cart').click(function(){
-console.log('clicked');
-var idstr = this.id.toString();
-console.log(idstr);
-if (cart[idstr] !=undefined){
-cart[idstr] = cart[idstr] + 1;
-}
-else
-{
-    cart[idstr] = 1;
-    totalItem =0;
-     itemInCart = Object.values(cart)
-            for (let item of itemInCart) {
-                totalItem += item;
+            // Setup cart from localStorage
+            if (localStorage.getItem('cart') == null) {
+                var cart = {};
+            } else {
+                cart = JSON.parse(localStorage.getItem('cart'));
+               
+                updateCart(cart);
             }
-}
-console.log(cart);
-localStorage.setItem('cart', JSON.stringify(cart));
-document.getElementById('cart').innerHTML = Object.keys(cart).length;
-});
-$('#popcart').popover()
-
-document.getElementById("popcart").setAttribute('data-content','<h5>Cart</h5>');
+        
+            // Use delegated listener for Add to Cart
+            $(document).on("click", ".cart", function () {
+                const id = '{{ product.id }}';
+                const key = 'pr' + id;
+        
+                if (cart[key]) {
+                    cart[key][0] += 1;
+                } else {
+                    cart[key] = [1, "{{ product.product_name }}", parseInt("{{ product.price }}")];
+                }
+        
+                updateCart(cart);
+            });
+        
+            // Use delegated listener for Buy Now
+            $(document).on("click", ".buy-now", function () {
+                const id = '{{ product.id }}';
+                const key = 'pr' + id;
+        
+                if (cart[key]) {
+                    cart[key][0];
+                } else {
+                    cart[key] = [1, "{{ product.product_name }}", parseInt("{{ product.price }}")];
+                }
+        
+                updateCart(cart);
+        
+                // Redirect to checkout
+                window.location.href = '/shop/checkout';
+            });
+        
+            // Setup Popover
+            $('#popcart').popover();
+            updatePopover(cart);
+        
+            function updatePopover(cart) {
+                let popStr = "<h5>Cart for your items in my shopping cart</h5><div class='mx-2 my-2'>";
+                let i = 1;
+        
+                for (let item in cart) {
+                    popStr += `<b>${i}</b>. ${cart[item][1].slice(0, 19)}... Qty: ${cart[item][0]}<br>`;
+                    i++;
+                }
+        
+                popStr += `
+                    </div>
+                    <a href='/shop/checkout'><button class='btn btn-primary' id='checkout'>Checkout</button></a>
+                    <button class='btn btn-primary' onclick='clearCart()' id='clearCart'>Clear Cart</button>
+                `;
+        
+                $('#popcart').attr('data-content', popStr).popover('show');
+            }
+        
+            function clearCart() {
+                for (let item in cart) {
+                    const div = document.getElementById('div' + item);
+                    if (div) {
+                        div.innerHTML = `
+                            <button id="${item}" class="btn btn-primary cart mx-2">Add To Cart</button>
+                            <button class="btn btn-primary buy-now">Buy Now</button>
+                        `;
+                    }
+                }
+                localStorage.clear();
+                cart = {};
+                updateCart(cart);
+            }
+        
+            function updateCart(cart) {
+                const id = '{{ product.id }}';
+                const key = 'pr' + id;
+        
+                if (cart[key]) {
+                    document.getElementById('div' + key).innerHTML = `
+                        <button id="minus${key}" class="btn btn-primary minus mx-2">-</button>
+                        <span id="val${key}">${cart[key][0]}</span>
+                        <button id="plus${key}" class="btn btn-primary plus mx-2">+</button>
+                        <button class="btn btn-primary buy-now">Buy Now</button>
+                    `;
+                } else {
+                    document.getElementById('div' + key).innerHTML = `
+                        <button id="${key}" class="btn btn-primary cart mx-2">Add To Cart</button>
+                        <button class="btn btn-primary buy-now">Buy Now</button>
+                    `;
+                }
+        
+                document.getElementById('cart').innerHTML = Object.keys(cart).length;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updatePopover(cart);
+            }
+        
+            // Delegated minus button
+            $(document).on("click", ".minus", function () {
+                const a = this.id.slice(7);
+                const key = 'pr' + a;
+        
+                if (cart[key]) {
+                    cart[key][0] -= 1;
+                    if (cart[key][0] <= 0) {
+                        delete cart[key];
+                        document.getElementById('div' + key).innerHTML = `
+                            <button id="${key}" class="btn btn-primary cart mx-2">Add To Cart</button>
+                            <button class="btn btn-primary buy-now">Buy Now</button>
+                        `;
+                    } else {
+                        document.getElementById('val' + key).innerHTML = cart[key][0];
+                    }
+                }
+        
+                updateCart(cart);
+            });
+        
+            // Delegated plus button
+            $(document).on("click", ".plus", function () {
+                const a = this.id.slice(6);
+                const key = 'pr' + a;
+        
+                if (cart[key]) {
+                    cart[key][0] += 1;
+                    document.getElementById('val' + key).innerHTML = cart[key][0];
+                }
+        
+                updateCart(cart);
+            });
 </script>
+        
 {% endblock %}
